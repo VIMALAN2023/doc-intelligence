@@ -1,0 +1,16 @@
+langchain==0.3.25
+langchain-community==0.3.24
+langchain-google-genai==2.1.4
+langchain-huggingface==0.1.2
+langchain-text-splitters==0.3.8
+faiss-cpu==1.10.0
+sentence-transformers==3.4.1
+fastapi==0.115.12
+uvicorn==0.34.0
+python-multipart==0.0.20
+python-dotenv==1.1.0
+pydantic==2.11.3
+requests==2.32.3
+pypdf==5.4.0
+docx2txt==0.8
+streamlit==1.44.1
