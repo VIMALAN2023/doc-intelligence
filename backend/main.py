@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 import shutil
 import os
 
-from utils import load_document, chunk_documents
-from rag_pipeline import create_vector_store, build_qa_chain, compute_confidence
-from extractor import extract_shipment_data
+from backend.utils import load_document, chunk_documents
+from backend.rag_pipeline import create_vector_store, build_qa_chain, compute_confidence
+from backend.extractor import extract_shipment_data
 
 load_dotenv()
 
