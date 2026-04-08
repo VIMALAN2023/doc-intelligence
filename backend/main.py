@@ -55,7 +55,8 @@ async def upload(file: UploadFile = File(...)):
                 status_code=400, detail="Document appears to be empty or unreadable."
             )
 
-        DOC_TEXT = " ".join([d.page_content for d in docs])
+        # DOC_TEXT = " ".join([d.page_content for d in docs])
+        DOC_TEXT = " ".join([d.page_content[:200] for d in docs])
         chunks = chunk_documents(docs)
         VECTOR_STORE = create_vector_store(chunks)
         QA_CHAIN = build_qa_chain(VECTOR_STORE, API_KEY)
