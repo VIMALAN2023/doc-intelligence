@@ -1,7 +1,19 @@
 import streamlit as st
 import requests
+import os
+import time
 
-BACKEND_URL = "http://localhost:8000"
+
+def safe_post(url, **kwargs):
+    for _ in range(5):  # retry 5 times
+        try:
+            return requests.post(url, **kwargs)
+        except requests.exceptions.ConnectionError:
+            time.sleep(1)
+    raise requests.exceptions.ConnectionError("Backend not reachable after retries")
+
+# BACKEND_URL = "http://localhost:8000"
+BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 REQUEST_TIMEOUT = 120  # seconds — LLM calls can be slow
 
 st.set_page_config(page_title="Ultra Doc-Intelligence", page_icon="📄")
@@ -41,7 +53,7 @@ if uploaded_file and not st.session_state.uploaded:
             st.error("❌ Upload timed out. The document may be too large or the server is busy.")
             st.stop()
         except requests.exceptions.ConnectionError:
-            st.error("❌ Cannot reach the backend. Make sure `uvicorn main:app` is running.")
+            st.error("❌ Backend not ready yet. Please wait a few seconds and retry.")
             st.stop()
 
     if response.status_code == 200:
@@ -75,7 +87,7 @@ if st.button("Ask"):
                 st.error("❌ Request timed out. Please try again.")
                 st.stop()
             except requests.exceptions.ConnectionError:
-                st.error("❌ Cannot reach the backend. Make sure `uvicorn main:app` is running.")
+                st.error("❌ Backend not ready yet. Please wait a few seconds and retry.")
                 st.stop()
 
         if res.status_code != 200:
@@ -114,7 +126,7 @@ if st.button("Extract Shipment Data"):
                 st.error("❌ Extraction timed out. Please try again.")
                 st.stop()
             except requests.exceptions.ConnectionError:
-                st.error("❌ Cannot reach the backend. Make sure `uvicorn main:app` is running.")
+                st.error("❌ Backend not ready yet. Please wait a few seconds and retry.")
                 st.stop()
 
         if res.status_code == 200:

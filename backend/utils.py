@@ -41,7 +41,7 @@ def chunk_documents(docs):
     - chunk_overlap=150: preserves cross-boundary context for better RAG recall
     """
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=300,
-        chunk_overlap=50,
+        chunk_size=800,
+        chunk_overlap=150,
     )
     return splitter.split_documents(docs)
