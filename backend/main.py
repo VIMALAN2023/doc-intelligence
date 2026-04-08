@@ -41,10 +41,12 @@ async def upload(file: UploadFile = File(...)):
             detail=f"Unsupported file type '{ext}'. Allowed: {allowed_types}",
         )
 
-    file_path = f"temp_{file.filename}"
+    file_path = f"/tmp/{file.filename}"
+
     try:
+        content = await file.read()
         with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
+            buffer.write(content)
 
         docs = load_document(file_path)
 
@@ -68,10 +70,10 @@ async def upload(file: UploadFile = File(...)):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Processing failed: {str(e)}")
+
     finally:
         if os.path.exists(file_path):
             os.remove(file_path)
-
 
 class QuestionRequest(BaseModel):
     question: str
