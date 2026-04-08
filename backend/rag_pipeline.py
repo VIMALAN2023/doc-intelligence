@@ -1,3 +1,6 @@
+import os
+os.environ["HF_HOME"] = "/tmp"
+
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.retrieval_qa.base import RetrievalQA
 from langchain_community.vectorstores import FAISS

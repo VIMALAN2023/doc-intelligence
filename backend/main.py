@@ -1,3 +1,6 @@
+import os
+os.environ["HF_HOME"] = "/tmp"
+
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -7,6 +10,7 @@ import os
 from backend.utils import load_document, chunk_documents
 from backend.rag_pipeline import create_vector_store, build_qa_chain, compute_confidence
 from backend.extractor import extract_shipment_data
+
 
 load_dotenv()
 

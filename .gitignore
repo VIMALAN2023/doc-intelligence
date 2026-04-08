@@ -20,3 +20,25 @@ venv/
 
 *.log
 tmp/
+
+# ----------------------------
+
+# ML / AI (VERY IMPORTANT)
+
+# ----------------------------
+
+.cache/
+.huggingface/
+transformers_cache/
+
+# Vector DB / embeddings
+
+*.faiss
+*.pkl
+*.pickle
+
+# Models (if any downloaded)
+
+models/
+checkpoints/
+*.bin
